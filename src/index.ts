@@ -1,9 +1,10 @@
 import express, { Express, Request, Response } from "express";
 require("dotenv").config();
 import mongoose from "mongoose";
+import userRouter from "./controllers/users";
 const app = express();
 const url: any = process.env.MONGO;
-
+app.use(express.json());
 mongoose
   .connect(url)
   .then(() => {
@@ -12,6 +13,8 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+app.use("/api/users", userRouter);
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello from express +TS");
 });

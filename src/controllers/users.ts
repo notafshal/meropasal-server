@@ -2,7 +2,7 @@ import express from "express";
 require("dotenv").config();
 const userRouter = express.Router();
 import { UserModel } from "./../schema/userSchema/userSchema";
-const bcrypt = require("bcrypt");
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 userRouter.get("/", (req, res) => {
@@ -49,21 +49,5 @@ userRouter.post("/register", async (req, res) => {
     })
     .catch((err) => res.send(err));
 });
-userRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await UserModel.findOne({ email });
 
-  const passwordCorrect =
-    user === null ? false : await bcrypt.compare(password, user.password);
-
-  if (!(user && passwordCorrect)) {
-    return res.status(401).json({ error: "invalid email or password" });
-  }
-  const userToken = {
-    email: user.email,
-    id: user._id,
-  };
-  const token = jwt.sign(userToken, process.env.JWT_SECRET || "defaultSecret");
-  res.status(200).send({ token, email: user.email, username: user.username });
-});
 export default userRouter;

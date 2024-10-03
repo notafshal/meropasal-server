@@ -10,6 +10,7 @@ const userSchema = new mongoose_1.default.Schema({
     username: { type: String, require: true },
     password: { type: String, require: true },
     location: { type: String },
+    product: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: "Product" }],
 });
 userSchema.set("toJSON", {
     transform: (document, returnedObject) => {

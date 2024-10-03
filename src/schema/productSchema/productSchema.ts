@@ -12,6 +12,10 @@ const productSchema = new mongoose.Schema({
     },
     count: { type: Number },
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 productSchema.set("toJSON", {
   transform: (document, returnedObject) => {

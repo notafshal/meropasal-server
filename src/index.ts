@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import userRouter from "./controllers/users";
 import productRouter from "./controllers/products";
 const app = express();
+import jwt from "jsonwebtoken";
+
 const url: any = process.env.MONGO;
 app.use(express.json());
 mongoose
